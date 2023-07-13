@@ -1,9 +1,23 @@
 <template>
   <section id="product-container" class="w-full bg-[#EAEAEA] min-h-screen h-fit flex flex-col items-center justify-start">
-    <div id="sort-section" class="bg-green-500 mt-3 w-[60%] h-12">
-      sort
+    <div id="sort-section" class="mt-3 w-[60%] h-12 px-20 pb-2 flex justify-between items-end  rounded-[20px]">
+      <p>Admin / Products / All</p>
+      <div id="search-and-sort" class="flex items-end">
+        <div id="search" class=" mx-3">
+          <input
+              class="shadow appearance-none border rounded w-full py-[7px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username" type="text"
+              v-model="search"
+              placeholder="Search ...">
+        </div>
+        <SortDropDown :categories="props.categories">
+
+        </SortDropDown>
+      </div>
+
+
     </div>
-    <main id="content" class="w-[60%] mt-3 rounded-[10px] h-full min-h-fit p-5 px-20">
+    <main id="content" class="w-[60%] rounded-[10px] h-full min-h-fit py-3 px-20">
       <div class="grid grid-cols-3 gap-4">
         <div
             class="element bg-[#FFFFFF] shadow-lg rounded-[10px] h-full hover:border hover:border-sky-500 hover:cursor-pointer hover:transform hover:scale-105 transition-all duration-200 overflow-hidden"
@@ -44,11 +58,8 @@
                   }"
             />
           </template>
-
-
         </nav>
       </div>
-
     </main>
   </section>
 </template>
@@ -56,14 +67,31 @@
 
 </style>
 <script setup>
+  import SortDropDown from "@/Pages/Template/SortDropDown.vue";
   import { defineProps } from "vue";
-  import { Link } from '@inertiajs/vue3'
+  import { Link, router } from '@inertiajs/vue3'
+  import { ref, watch } from 'vue'
 
   const props = defineProps({
       products: {
         type: Object,
         required: true,
+      },
+      categories: {
+        type: Object,
       }
+  })
+
+  let search = ref('');
+  let sort = ref('');
+  watch (search, value => {
+    router.visit('/admin/product', {
+      method: 'get',
+      data: {
+        search: value,
+      },
+      preserveState: true,
+    })
   })
 
   function checkifRightorLeft(side)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -18,11 +19,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|ResponseFactory
+    public function index(Request $request): Response|ResponseFactory
     {
         return Inertia('Admin/Product', [
-            'products' => $this->productService->getAllProducts(),
+            'products' => $this->productService->getAllProducts($request),
+            'categories' => $this->productService->getAllCategories(),
         ]);
+    }
+
+    public function search()
+    {
+
     }
 
     /**
