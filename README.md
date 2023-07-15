@@ -48,18 +48,21 @@ FOR THE features.
 
     > url: /admin/product         product page
 
-    > Search                      ![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/c52ebed9-f459-4e14-bd71-836bbc4517fa)
+___________________________________________________________________           
 
-    > Add Product                 ![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/6d49177a-b4e9-4ee7-9618-1b9670d80289)
+    > Search  
+![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/c52ebed9-f459-4e14-bd71-836bbc4517fa)
 
-    > Filter                      ![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/5f227412-57cf-42f1-9c3f-693424f701c8)
+    > Add Product  
+![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/6d49177a-b4e9-4ee7-9618-1b9670d80289)
 
-    > Action [view, edit, delete] ![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/7e26ccba-b5af-47a9-ba0e-95434fa7734e)
+    > Filter   
+![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/5f227412-57cf-42f1-9c3f-693424f701c8)
 
-    > Pagiantion                  ![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/45ad5932-05fd-4169-817d-e4c8f94122f4)
+     > Action [view, edit, delete] 
+![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/7e26ccba-b5af-47a9-ba0e-95434fa7734e)
 
-
-
-
+    > Pagiantion 
+![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/45ad5932-05fd-4169-817d-e4c8f94122f4)
 
 
