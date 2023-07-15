@@ -22,7 +22,7 @@
             <Link :href="route('product.create')"><i class="fa-solid fa-plus"></i></Link >
           </button>
           <input
-              class="h-10 w-[30%] shadow appearance-none border rounded px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="h-10 w-[30%] bg-white shadow appearance-none border rounded px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username" type="text"
               v-model="search"
               placeholder="Search ...">
@@ -41,7 +41,34 @@
           <div class="overflow-x-auto rounded-[10px]">
             <div class="min-w-screen min-h-fit bg-gray-100 flex flex-col bg-gray-100 font-sans overflow-hidden">
               <div class="w-full">
+                <div
+                    id="filter"
+                    class="w-full shadow-md rounded h-10 flex items-center justify-end mt-2"
+                >
+                  <p class="main-font font-bold text-sm">Filter</p>
+                  <div id="input" class="h-8 w-[20%] px-3">
+                    <select
+                        class="px-4 h-full pr-9 block w-full border-gray-100 rounded-full text-sm
+                        focus:border-blue-500 focus:ring-blue-500"
+                        v-model="selectedFilterCategory"
+                    >
+                      <option
+                          value=""
+                          selected
+                      >All</option>
+                      <option
+                          v-for="category in categories"
+                          :value="category"
+                          v-html="category"
+                      ></option>
+                    </select>
+
+                  </div>
+
+
+                </div>
                 <div class="bg-white shadow-md rounded my-6">
+
                   <table class="min-w-max w-full table-auto">
                     <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -67,9 +94,6 @@
                       </td>
                       <td class="py-3 px-6 text-left">
                         <div class="flex items-center">
-                          <div class="mr-2">
-                            <img class="w-6 h-6 rounded-full" :src="product.url"/>
-                          </div>
                           <span>{{ product.name }}</span>
                         </div>
                       </td>
@@ -101,11 +125,12 @@
                           </Link>
                           <div
                               class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 hover:cursor-pointer"
-                              @click="openModal(product.id)"
                           >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                            </svg>
+                            <Link :href="route('product.edit', product.id)">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                              </svg>
+                            </Link>
                           </div>
                           <div
                               class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 hover:cursor-pointer"
@@ -158,27 +183,49 @@
     search: {
       type: String,
     },
-    attrs: {
+    categories: {
       type: Object,
     },
   });
+
+  let selectedFilterCategory = ref('All');
+
   let search = ref(props.search);
-  let deleted = ref(usePage().props.flash.delete);
 
   watch (search, value => {
-    router.visit(route('product.index'), {
-      method: 'get',
-      data: {
-        search: value,
-      },
-      preserveState: true,
-      preserveScroll: true,
-    })
+    if(value != '')
+    {
+      router.visit(route('product.index'), {
+        method: 'get',
+        data: {
+          search: value,
+        },
+        preserveState: true,
+        preserveScroll: true,
+      })
+    }
+
+  })
+
+ watch(selectedFilterCategory, value => {
+     router.visit(route('product.index'), {
+       method: 'get',
+       data: {
+         category: value,
+       },
+       preserveState: true,
+       preserveScroll: true,
+     })
   })
 
   if (page.props.flash.create == 'true') {
     productCreatedNotification();
   }
+
+  if (page.props.flash.edit == 'true') {
+    productUpdatedNotification();
+  }
+
   function productCreatedNotification()
   {
     Swal.fire({
@@ -191,19 +238,26 @@
       timerProgressBar: true,
       background: '#4caf50',
       iconColor: 'white',
-      showClass: {
-        popup: 'swal2-noanimation',
-        backdrop: 'swal2-noanimation'
-      },
-      hideClass: {
-        popup: '',
-        backdrop: ''
-      }
     });
   }
+  function productUpdatedNotification()
+  {
+    Swal.fire({
+      icon: 'success',
+      title: 'Product Updated',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      background: '#4caf50',
+      iconColor: 'white',
+    });
+  }
+
   function convertToReadableUpdatedAtDate(date)
   {
-    return moment(date).startOf('hour').fromNow();
+    return moment(date).startOf('second').fromNow();
   }
 
   function openDeleteModal(id)
@@ -237,24 +291,22 @@
       preserveState: true,
       preserveScroll: true,
     })
-    if(page.props.flash.delete == 'true')
-    {
-      Swal.fire({
-        icon: 'success',
-        title: 'Record Deleted',
-        position: 'top-end',
-        toast: true,
-        showConfirmButton: false,
-        timer: 4000,
-        timerProgressBar: true,
-        customClass: {
-          title: 'text-white', // Custom CSS class for the title
-          icon: 'swal2-icon-error', // Use "swal2-icon-success" for a green checkmark icon
-        },
-        background: '#f44336', // Red background color
-        iconColor: '#ffffff', // White icon color
-      });
-    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Record Deleted',
+      position: 'top-end',
+      toast: true,
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      customClass: {
+        title: 'text-white', // Custom CSS class for the title
+        icon: 'swal2-icon-error', // Use "swal2-icon-success" for a green checkmark icon
+      },
+      background: '#f44336', // Red background color
+      iconColor: '#ffffff', // White icon color
+    });
   }
 
 

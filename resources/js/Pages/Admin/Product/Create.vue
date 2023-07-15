@@ -14,7 +14,7 @@
                   <input type="text" name="first-name"
                          v-model="form.name"
                          id="first-name"
-                         class="px-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                         class="px-2 bg-white block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                          focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                          :class="{
                            'border border-red-500': errors.name
@@ -34,14 +34,15 @@
                           name="country"
                           autocomplete="country-name"
                           v-model="form.category"
-                          class="px-2 block border w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset
+                          class="px-2 bg-white block border w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset
                           focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                           :class="{
                            'border-red-500': errors.category
                          }">
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
+                    <option
+                        v-for="category in categories"
+                        v-html="category"
+                    ></option>
                   </select>
                   <small v-if="errors.category" v-text="errors.category" class="text-red-500 italic main-font font-bold"></small>
                 </div>
@@ -63,7 +64,6 @@
                         <input
                             id="file-upload"
                             name="file-upload"
-
                             :multiple="true"
                             type="file"
                             accept="image/*"
@@ -96,7 +96,7 @@
                          'border border-red-500': errors.description
                        }"
                       v-model="form.description"
-                      class="block p-2.5 w-full text-sm text-dark rounded-lg border border-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                      class="block p-2.5 w-full bg-white text-sm text-dark rounded-lg border border-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                       placeholder="Description ...."></textarea>
                 </div>
                 <small v-if="errors.description" v-text="errors.description" class="text-red-500 italic main-font font-bold"></small>
@@ -127,6 +127,7 @@ import { router, useForm } from '@inertiajs/vue3'
 
 defineProps({
   errors: Object,
+  categories: Object,
 })
 
 const form = useForm({

@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'create' => fn () => $request->session()->get('create'),
                 'delete' => fn () => $request->session()->get('delete'),
+                'edit' => fn () => $request->session()->get('edit'),
             ],
         ]);
     }

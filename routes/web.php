@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\ShowProductController;
 use Illuminate\Support\Facades\Route;
@@ -28,13 +29,14 @@ Route::prefix('admin')->group(function () {
         return Inertia('Admin/Dashboard');
     })->name('admin.dashboard');
 
-    Route::get('/dashboard', function () {
-        return Inertia('Admin/Dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('/product', ProductController::class, [
         'names' => 'product',
         'parameters' => ['' => 'id']
     ]);
+
+    // I override the patch/put method in the resource to allow method spoofing ( _method:patch ) from the vue form. :D
+    Route::post('product/{id}', [ProductController::class, 'update'])->name('product.update');
 
 });

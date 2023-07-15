@@ -1,11 +1,12 @@
 <template>
+
   <section id="product-container" class="w-full bg-[#EAEAEA] min-h-screen h-fit flex flex-col items-center justify-start">
     <div id="sort-section" class="mt-3 w-[60%] h-12 px-20 pb-2 flex justify-between items-end  rounded-[20px]">
       <p>Admin / Products / All / <span class="text-blue-500 font-semibold">{{ search }}</span></p>
       <div id="search-and-sort" class="flex items-end">
         <div id="search" class=" mx-3">
           <input
-              class="shadow appearance-none border rounded w-full py-[7px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow bg-white appearance-none border rounded w-full py-[7px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username" type="text"
               v-model="search"
               placeholder="Search ...">
@@ -47,7 +48,7 @@
 <script setup>
 import Pagination from "@/Pages/Template/Pagination.vue";
 import { defineProps } from "vue";
-import { Link, router } from '@inertiajs/vue3'
+import { Link, router, Head} from '@inertiajs/vue3'
 import { ref, watch } from 'vue'
 
 const props = defineProps({

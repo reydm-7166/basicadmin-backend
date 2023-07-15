@@ -22,6 +22,7 @@ class ProductController extends Controller
         return Inertia('Admin/Product/Product', [
             'products' => $this->productService->getAllProducts($request),
             'search' => $request->input('search') ?? '',
+            'categories' => $this->productService->getAllCategories(),
         ]);
     }
 
@@ -30,7 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return inertia('Admin/Product/Create');
+        return inertia('Admin/Product/Create', [
+            'categories' => $this->productService->getAllCategories(),
+        ]);
     }
 
     /**
@@ -38,7 +41,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $storeProductRequest): \Illuminate\Http\RedirectResponse
     {
-       $storeProductRequest->validated();
+        $storeProductRequest->validated();
 
         $stored = $this->productService->createProduct($storeProductRequest);
 
@@ -63,15 +66,25 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        dd("edit" . $id);
+        return inertia('Admin/Product/Edit',[
+            'product' => $this->productService->getProductById($id),
+            'categories' => $this->productService->getAllCategories(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreProductRequest $storeProductRequest, $id)
     {
-        //
+        $storeProductRequest->validated();
+
+        $updated = $this->productService->updateProduct($storeProductRequest);
+
+        if(!$updated){
+            return redirect()->back()->with(['edit' => 'false']);
+        }
+        return redirect()->route('product.index')->with(['edit' => 'true']);
     }
 
     /**

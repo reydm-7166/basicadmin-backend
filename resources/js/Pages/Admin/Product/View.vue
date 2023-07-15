@@ -1,13 +1,22 @@
 <template>
+  <Head :title="product.name"/>
   <Sidebar></Sidebar>
   <main class="min-h-screen h-fit flex justify-center ms-[60px] items-center bg-gray-500">
 
     <section id="container" class="w-[65%] h-[700px] flex flex-col md:flex-row lg:flex-row">
       <div id="logo" class="h-full md:w-[50%] lg:w-[50%] rounded-t-[15px] lg:rounded-l-[30px] md:rounded-l-[30px] lg:rounded-t-[0px] md:rounded-t-[0px]">
-        <img
-            :src="product.url"
-            class="object-cover h-full w-full rounded-t-[15px] md:rounded-l-[30px] lg:rounded-l-[30px] md:rounded-t-[0px]"
-            alt="">
+        <div class="carousel w-full h-full rounded-t-[15px] md:rounded-l-[30px] lg:rounded-l-[30px] md:rounded-t-[0px]">
+          <div id="slide1" class="carousel-item relative w-full">
+            <img
+                src="https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg"
+                class="w-full object-cover h-full" />
+            <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <a href="#slide4" class="btn btn-circle">❮</a>
+              <a href="#slide2" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div id="form" class="bg-white h-full  w-full md:w-[50%] lg:w-[50%] flex flex-col justify-start md:rounded-r-[30px] lg:rounded-r-[30px] py-5 px-5">
         <form action="" method="post">

@@ -20,6 +20,9 @@ class ProductService
     {
         return $this->product
             ->query()
+            ->when($request->input('category'), function ($query, $category) {
+                $query->where('category', $category);
+            })
             ->when($request->input('search'), function ($query, $search) {
                     $query->where('name', 'like', '%' .  $search . '%')
                             ->orWhere('description', 'like', '%' .  $search . '%');
@@ -34,6 +37,32 @@ class ProductService
     public function getAllCategories() : Collection
     {
         return $this->product->distinct()->pluck('category');
+    }
+
+    public function updateProduct($productEditData)
+    {
+        /*
+         * if the image is array that means there are newly uploaded image, rewrite the image_file_name
+         * if not then just use the old image_file_name
+        */
+        if(gettype($productEditData->image) == 'array')
+        {
+            $convertedImageFileName = $this->fileRename($productEditData->image);
+        } else {
+            $convertedImageFileName = $productEditData->image;
+        }
+
+        $converted_date = Carbon::parse($productEditData->date_time)->format('Y-m-d H:i:s');
+
+        $oldRecord = $this->product->findOrFail($productEditData->id);
+
+        $oldRecord->name = $productEditData->name;
+        $oldRecord->category = $productEditData->category;
+        $oldRecord->description = $productEditData->description;
+        $oldRecord->date_time = $converted_date;
+        $oldRecord->image_file_name = $convertedImageFileName;
+
+        return $oldRecord->save();
     }
 
     public function deleteProductById($id)
