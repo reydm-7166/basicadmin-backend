@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('category');
-            $table->text('url');
+            $table->text('url')->nullable();
             $table->string('description');
+            $table->text('image_file_name')->nullable();
+            $table->dateTime('date_time')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <template>
   <Head title="Login"/>
+
   <main class="h-screen flex justify-center items-center bg-gray-500">
     <section id="container" class="w-[65%] h-[700px] rounded-[30px] flex flex-row">
       <div id="logo" class="bg-blue-500 h-full w-[50%] rounded-l-[30px]">
@@ -48,8 +49,8 @@
 
 </template>
 
-
 <script setup>
   import { Head } from '@inertiajs/vue3'
+  import Sidebar from "@/Pages/Template/Sidebar.vue";
 
 </script>

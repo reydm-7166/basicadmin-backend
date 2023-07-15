@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\User\ShowProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +19,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login/attempt', [LoginController::class, 'authenticate'])->name('login.attempt');
 
-Route::prefix('admin')->group(function () {
 
-    Route::prefix('product')->group(function () {
-        Route::resource('', ProductController::class, [
-            'names' => 'product',
-            'parameters' => ['' => 'id']
-        ]);
-    });
+Route::get('/product', [ShowProductController::class , 'index'])->name('product.index');
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return Inertia('Admin/Dashboard');
+    })->name('admin.dashboard');
+
+    Route::get('/dashboard', function () {
+        return Inertia('Admin/Dashboard');
+    })->name('admin.dashboard');
+
+    Route::resource('/product', ProductController::class, [
+        'names' => 'product',
+        'parameters' => ['' => 'id']
+    ]);
 
 });
