@@ -76,4 +76,6 @@ ___________________________________________________________________
     > Pagiantion 
 ![image](https://github.com/reydm-7166/praxxys-backend/assets/98306215/45ad5932-05fd-4169-817d-e4c8f94122f4)
 
+    > and the EDIT, DELETE, VIEW
+
 
