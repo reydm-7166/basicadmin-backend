@@ -1,8 +1,8 @@
 ***************
 *
 *
-*      BEST VIEWED IN 1920x1080 monitor :D but works on table and a bit__
-*      of mobile view (its not fully responsive) half of it are.
+*      BEST VIEWED IN 1920x1080 monitor :D but works on table and a bit
+*  of mobile view (its not fully responsive) half of it are.
 *
 *
 *
