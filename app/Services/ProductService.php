@@ -99,7 +99,7 @@ class ProductService
             $newImageName = time() . '_' . $tempoName . '.' . $imageName->getClientOriginalExtension();
 
             //move the image to public folder
-            $imageName->move(base_path('\storage\app\product-images'), $newImageName);
+            $imageName->move(base_path('\public\images'), $newImageName);
 
             $filePaths[] = $newImageName;
         }

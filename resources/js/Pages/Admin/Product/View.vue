@@ -3,20 +3,12 @@
   <Sidebar></Sidebar>
   <main class="min-h-screen h-fit flex justify-center ms-[60px] items-center bg-gray-500">
 
-    <section id="container" class="w-[65%] h-[700px] flex flex-col md:flex-row lg:flex-row">
-      <div id="logo" class="h-full md:w-[50%] lg:w-[50%] rounded-t-[15px] lg:rounded-l-[30px] md:rounded-l-[30px] lg:rounded-t-[0px] md:rounded-t-[0px]">
-        <div class="carousel w-full h-full rounded-t-[15px] md:rounded-l-[30px] lg:rounded-l-[30px] md:rounded-t-[0px]">
-          <div id="slide1" class="carousel-item relative w-full">
-            <img
-                src="https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg"
-                class="w-full object-cover h-full" />
-            <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-              <a href="#slide4" class="btn btn-circle">❮</a>
-              <a href="#slide2" class="btn btn-circle">❯</a>
-            </div>
-          </div>
-        </div>
-
+    <section id="container" class="ms-[40px] md:ms-[100px] lg:ms-[100px] xl:w-[1000px] md:w-[950px] lg:w-[950px] h-[500px] flex flex-col md:flex-row lg:flex-row">
+      <div id="logo" class="h-full md:w-[50%] lg:w-[50%] rounded-t-[30px] lg:rounded-l-[30px] md:rounded-l-[30px] lg:rounded-t-[0px] md:rounded-t-[0px]">
+        <img alt=""
+             class="h-full w-full object-fit rounded-t-[30px] lg:rounded-l-[30px] md:rounded-l-[30px] lg:rounded-tl-[30px] md:rounded-t-[0px]"
+             :src="`/images/${firstImage}`"
+        >
       </div>
       <div id="form" class="bg-white h-full  w-full md:w-[50%] lg:w-[50%] flex flex-col justify-start md:rounded-r-[30px] lg:rounded-r-[30px] py-5 px-5">
         <form action="" method="post">
@@ -48,6 +40,7 @@
   import Sidebar from "@/Pages/Template/Sidebar.vue";
   import {defineProps, ref} from "vue";
 
+
   const props = defineProps({
     product: {
       type: Object,
@@ -55,7 +48,21 @@
     },
   });
 
+  let imageContainer = JSON.parse(props.product.image_file_name)
+
+  let firstImage = checkFirstImageInContainer(imageContainer)
+
+  function checkFirstImageInContainer(image)
+  {
+    if(image)
+    {
+      return image[0]
+    }
+    return 'no-image.png';
+  }
+
   let showForms = ref(false)
+
   function showHideForms() {
     if(showForms.value == false)
     {

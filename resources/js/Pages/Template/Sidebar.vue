@@ -73,8 +73,8 @@
         </Link>
         <hr class="my-4 text-gray-600">
 
-        <Link
-            href=""
+        <div
+            @click="logout()"
             class="p-2.5 mt-3 flex px-[20px] items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600"
             :class="{
                'px-0  justify-center' : sidebar
@@ -86,7 +86,7 @@
                'px-0 hidden' : sidebar
               }"
           >Logout</span>
-        </Link>
+        </div>
       </div>
     </div>
 
@@ -98,8 +98,14 @@
 <script setup>
 
   import { computed, onMounted, onUnmounted, ref, watch } from "vue"
+  import {router} from "@inertiajs/vue3";
 
   let sidebar = ref(false);
+
+  function logout()
+  {
+    router.post(route('logout'))
+  }
 
   function useBreakpoints() {
     let windowWidth = ref(window.innerWidth)

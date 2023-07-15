@@ -18,26 +18,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::post('/login/attempt', [LoginController::class, 'authenticate'])->name('login.attempt');
 
 Route::get('/product', [ShowProductController::class , 'index'])->name('product.index');
 
 
-Route::middleware('admin')->group(function () {
+Route::middleware('admin')->prefix('admin')->group(function () {
 
-    Route::prefix('admin')->group(function () {
-        Route::get('/', function () {
-            return Inertia('Admin/Dashboard');
-        })->name('admin.dashboard');
-
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-        Route::resource('/product', ProductController::class, [
-            'names' => 'product',
-            'parameters' => ['' => 'id']
-        ]);
-        // I override the patch/put method in the resource to allow method spoofing ( _method:patch ) from the vue form. :D
-        Route::post('product/{id}', [ProductController::class, 'update'])->name('product.update');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('/product', ProductController::class, [
+        'names' => 'product',
+        'parameters' => ['' => 'id']
+    ]);
+    // I override the patch/put method in the resource to allow method spoofing ( _method:patch ) from the vue form. :D
+    Route::post('product/{id}', [ProductController::class, 'update'])->name('product.update');
 });
 

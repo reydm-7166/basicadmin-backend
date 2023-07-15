@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -56,8 +57,9 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+
         return inertia('Admin/Product/View',[
-            'product' => $this->productService->getProductById($id),
+            'product' => $this->productService->getProductById($id)
         ]);
     }
 
