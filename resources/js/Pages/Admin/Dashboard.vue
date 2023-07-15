@@ -2,12 +2,12 @@
   <Sidebar/>
   <Head title="Dashboard"></Head>
   <div id="main"
-       class="ms-[100px] xl:ps-[200px] h-fit bg-green-500 min-h-screen p-1"
+       class="ms-[100px] xl:ps-[200px] h-fit min-h-screen p-1"
   >
     <div id="title" class="w-full text-center">
       <h1>At dashboard</h1>
     </div>
-    <div id="top-charts" class="w-full bg-white p-1 mt-5 flex flex-wrap justify-center">
+    <div id="top-charts" class="w-full p-1 mt-5 flex bg-white flex-wrap justify-center">
         <div id="chart1" class="bg-gray-500/75 h-48 w-[350px] mx-2 my-1 rounded-lg p-3">
           <h1 class="text-2xl mt-5 main-font font-bold">Products</h1>
           <div id="total" class="h-[50%] flex justify-between items-end p-5">
@@ -38,9 +38,14 @@
       </div>
     </div>
 
-    <div id="bottom-charts" class="w-full h-fit min-h-[600px] bg-white p-1 mt-10 flex flex-wrap justify-center items-center">
-      <div id="chart1" class="bg-blue-500 h-96 xl:h-[90%] lg:h-[90%] w-[350px] md:w-[450px] xl:w-[650px] mx-2 my-1 rounded-lg"></div>
-      <div id="chart2" class="bg-blue-500 h-96 xl:h-[90%] lg:h-[90%]w-[350px] md:w-[450px] xl:w-[650px] mx-2 my-1 rounded-lg"></div>
+    <div id="bottom-charts" class="w-full h-fit min-h-[600px] p-1 mt-10 flex flex-wrap justify-center items-center">
+
+      <div id="chart1" class="bg-blue-100 h-96 w-[350px] md:w-[450px] xl:w-[650px] mx-2 my-1 rounded-lg">
+        <Bar :data="data" :options="options" />
+      </div>
+      <div id="chart2" class="bg-blue-100 h-96 w-[350px] md:w-[450px] xl:w-[650px] mx-2 my-1 rounded-lg">
+        <Bar :data="data" :options="options" />
+      </div>
     </div>
 
   </div>
@@ -49,9 +54,19 @@
 
 </template>
 <script setup>
+  import { Bar } from 'vue-chartjs'
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale
+  } from 'chart.js'
+
   import Sidebar from "@/Pages/Template/Sidebar.vue";
   import {defineProps, ref} from "vue";
-
 
   let props = defineProps({
     products: {
@@ -65,6 +80,24 @@
     },
   });
 
+  let data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Data One',
+        backgroundColor: '#f87979',
+        data: [40, 39, 10, 40, 39, 80, 40]
+      }
+    ]
+  }
 
+  let options = {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+
+
+
+  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 </script>

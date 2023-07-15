@@ -1,12 +1,25 @@
 <template>
   <Head title="Login"/>
 
-  <main class="h-screen flex justify-center items-center bg-gray-500">
-    <section id="container" class="w-[65%] h-[700px] rounded-[30px] flex flex-row">
-      <div id="logo" class="bg-blue-500 h-full w-[50%] rounded-l-[30px]">
-        testasdas
+  <main class="min-h-screen h-fit flex justify-center items-center bg-gray-500">
+    <section id="container"
+             class="bg-green-500 min-h-[400px] h-fit sm:h-fit md:h-[600px] lg:h-[600px] xl:h-[600px] p-2 w-[450px] sm:w-[550px] md:w-[800px] lg:w-[1200px]
+             xl:w-[1200px] h-[700px] rounded-[30px] flex flex-col md:flex-row lg:flex-row xl:flex-row sm:flex-col">
+
+      <div id="logo"
+           class="bg-blue-500 w-full md:w-[50%] lg:w-[50%] xl:w-[50%] sm:w-full rounded-t-[30px]
+            lg:rounded-l-[30px] md:rounded-l-[30px] xl:rounded-l-[30px]
+            lg:rounded-r-[00px] md:rounded-r-[0px] xl:rounded-r-[0px]
+            ">
+        <div class="w-full h-full flex justify-center items-center sm:rounded-l-[30px]">
+          <img src="/images/logo.png" alt="logo" class="object-fit w-full h-[50%]">
+        </div>
       </div>
-      <div id="form" class="bg-white h-full w-[50%] flex flex-col justify-center items-center rounded-r-[30px]">
+
+      <div id="form"
+           class="bg-white h- w-full h-full md:w-[50%] lg:w-[50%] xl:w-[50%] w-full h-full md:h-full lg:h-full xl:h-full rounded-b-[30px] xl:rounded-r-[30px]
+           lg:rounded-r-[30px] md:rounded-r-[30px] xl:rounded-l-[0px]
+           lg:rounded-l-[0px] md:rounded-l-[0px] flex flex-col justify-center items-center">
         <div id="title" class="w-full h-36 flex justify-center items-end text-4xl pb-4 main-font">
           Admin Login
         </div>
@@ -51,6 +64,23 @@
 
 <script setup>
   import { Head } from '@inertiajs/vue3'
-  import Sidebar from "@/Pages/Template/Sidebar.vue";
+  import { ref } from 'vue';
+  import { router, useForm } from '@inertiajs/vue3'
+
+  const form = useForm({
+    name: null,
+    category: null,
+    description: null,
+    date_time: null,
+    image: null,
+  })
+
+  function submit() {
+    form.post(route('login.attempt'), {
+      preserveScroll: true,
+      preserveState: true,
+    })
+  }
+
 
 </script>
