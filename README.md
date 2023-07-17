@@ -55,6 +55,8 @@ FOR THE features.
 
     > url: /login                 login panel. (login using the credentials from the DatabaseSeeder
 
+    > url: /product               user view of the products
+
     > url: /admin/dashboard       dashboard graphs. (made it simple i was running out of time)
 
     > url: /admin/product         product page
